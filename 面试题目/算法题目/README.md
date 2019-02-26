@@ -11,7 +11,7 @@
 输出例子1: 122
 
 解析：机器1只能产生奇数，机器2只能产生偶数；调用递归的方法即可！
-'''
+<pre><code>
 public class Demo1 {
 	public static StringBuilder a = new StringBuilder("");
 
@@ -43,7 +43,7 @@ public class Demo1 {
 		System.out.println(charArray1);
 	}
 }
-'''
+</code></pre>
 
 二 求“相反数”问题
 为了得到一个数的"相反数",我们将这个数的数字顺序颠倒,然后再加上原先的数得到"相反数"。例如,为了得到1325的"相反数",首先我们将该数的数字顺序颠倒,我们得到5231,之后再加上原先的数,我们得到5231+1325=6556.如果颠倒之后的数字有前缀零,前缀零将会被忽略。例如n = 100, 颠倒之后是1.
@@ -54,7 +54,7 @@ public class Demo1 {
 
 解析： 利用StringBuild的resever()方法将数组的顺序颠倒！
 
-'''
+<pre><code>
 public class Demo2 {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
@@ -69,7 +69,7 @@ public class Demo2 {
 		System.out.println(numM + numN);
 	}
 }
-'''
+</code></pre>
 
 
 三 字符串碎片的平均长度
@@ -82,7 +82,7 @@ public class Demo2 {
 
 解析：相邻的两个字母不同就表示会有碎片产生
 
-'''
+<pre><code>
 public class Demo3 {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
@@ -100,4 +100,4 @@ public class Demo3 {
 		System.out.println((length / m));
 	}
 }
-'''
+</code></pre>
