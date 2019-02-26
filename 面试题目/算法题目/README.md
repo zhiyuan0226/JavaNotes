@@ -1,4 +1,4 @@
-算法题
+#算法题
 
 一 获得特定数量硬币问题
 小易准备去魔法王国采购魔法神器,购买魔法神器需要使用魔法币,但是小易现在一枚魔法币都没有,但是小易有两台魔法机器可以通过投入x(x可以为0)个魔法币产生更多的魔法币。
@@ -11,7 +11,7 @@
 输出例子1: 122
 
 解析：机器1只能产生奇数，机器2只能产生偶数；调用递归的方法即可！
-
+'''
 public class Demo1 {
 	public static StringBuilder a = new StringBuilder("");
 
@@ -43,6 +43,7 @@ public class Demo1 {
 		System.out.println(charArray1);
 	}
 }
+'''
 
 二 求“相反数”问题
 为了得到一个数的"相反数",我们将这个数的数字顺序颠倒,然后再加上原先的数得到"相反数"。例如,为了得到1325的"相反数",首先我们将该数的数字顺序颠倒,我们得到5231,之后再加上原先的数,我们得到5231+1325=6556.如果颠倒之后的数字有前缀零,前缀零将会被忽略。例如n = 100, 颠倒之后是1.
@@ -53,7 +54,7 @@ public class Demo1 {
 
 解析： 利用StringBuild的resever()方法将数组的顺序颠倒！
 
-
+'''
 public class Demo2 {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
@@ -68,7 +69,7 @@ public class Demo2 {
 		System.out.println(numM + numN);
 	}
 }
-
+'''
 
 
 三 字符串碎片的平均长度
@@ -81,7 +82,7 @@ public class Demo2 {
 
 解析：相邻的两个字母不同就表示会有碎片产生
 
-
+'''
 public class Demo3 {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
@@ -99,3 +100,4 @@ public class Demo3 {
 		System.out.println((length / m));
 	}
 }
+'''
