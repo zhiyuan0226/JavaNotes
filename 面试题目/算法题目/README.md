@@ -11,6 +11,7 @@
 输出例子1: 122
 
 解析：机器1只能产生奇数，机器2只能产生偶数；调用递归的方法即可！
+
 public class Demo1 {
 	public static StringBuilder a = new StringBuilder("");
 
@@ -52,6 +53,7 @@ public class Demo1 {
 
 解析： 利用StringBuild的resever()方法将数组的顺序颠倒！
 
+
 public class Demo2 {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
@@ -78,6 +80,7 @@ public class Demo2 {
 输出例子1: 2.25
 
 解析：相邻的两个字母不同就表示会有碎片产生
+
 
 public class Demo3 {
 	public static void main(String[] args) {
