@@ -2,14 +2,13 @@
 ------------
 
 [0.终端提示](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "0.终端提示")  
-[1.目录介绍](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "1.目录介绍")  
-[2.常用命令](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "2.常用命令")  
-[3.jdk配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "3.jdk配置")  
-[4.tomcat配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "4.tomcat配置")  
-[5.mysql配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "5.mysql配置")  
-[附1：忘记mysql怎么修改密码的方法](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "附1：忘记mysql怎么修改密码的方法")  
-[附2：设置用户具有访问的权限](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "附2：设置用户具有访问的权限")  
-
+[1.目录介绍](https://github.com/zhiyuan6666/Java/blob/master/linux.md#1%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D "1.目录介绍")  
+[2.常用命令](https://github.com/zhiyuan6666/Java/blob/master/linux.md#2%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4 "2.常用命令")  
+[3.jdk配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md#3jdk%E9%85%8D%E7%BD%AE "3.jdk配置")  
+[4.tomcat配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md#3jdk%E9%85%8D%E7%BD%AE "4.tomcat配置")  
+[5.mysql配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md#3jdk%E9%85%8D%E7%BD%AE "5.mysql配置")  
+[附1：忘记mysql怎么修改密码的方法](https://github.com/zhiyuan6666/Java/blob/master/linux.md#%E9%99%841%E5%BF%98%E8%AE%B0mysql%E6%80%8E%E4%B9%88%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81%E7%9A%84%E6%96%B9%E6%B3%95 "附1：忘记mysql怎么修改密码的方法")  
+[附2：设置用户具有访问的权限](https://github.com/zhiyuan6666/Java/blob/master/linux.md#%E9%99%842%E8%AE%BE%E7%BD%AE%E7%94%A8%E6%88%B7%E5%85%B7%E6%9C%89%E8%AE%BF%E9%97%AE%E7%9A%84%E6%9D%83%E9%99%90 "附2：设置用户具有访问的权限")  
 ------------
 
 ### 0. 终端提示 
