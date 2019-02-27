@@ -2,12 +2,19 @@
 ------------
 
 [0.终端提示](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "0.终端提示")
+
 [1.目录介绍](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "1.目录介绍")
+
 [2.常用命令](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "2.常用命令")
+
 [3.jdk配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "3.jdk配置")
+
 [4.tomcat配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "4.tomcat配置")
+
 [5.mysql配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "5.mysql配置")
+
 [附1：忘记mysql怎么修改密码的方法](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "附1：忘记mysql怎么修改密码的方法")
+
 [附2：设置用户具有访问的权限](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "附2：设置用户具有访问的权限")
 
 ------------
