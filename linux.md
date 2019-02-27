@@ -91,12 +91,25 @@
 	5.7 修改配置文件
 		cp support-files/my-default.cnf /etc/my.cnf
 		cp support-files/mysql.server      /etc/rc.d/init.d/mysql
-	5.8 操作数据库
+	5.8 重启mysql服务
+			启动mysql服务：
+			命令：service mysql start
+			关闭服务：
+			命令：service mysql stop
+			重启服务：
+			命令：service mysql restart
+
+	5.9 操作数据库
 		软连接
 		#ln -s /usr/local/mysql/bin/mysql /usr/bin/mysql
 		操作数据库
 		#mysql -r root -p
-		
+	注：这时候MySQL在重启的时候不会自动启动
+		使用root用户在/etc/rc.d/rc.local 文件末尾加入如下内容
+			#start mysql
+			echo "Start MySQL..."
+			service musql start;
+
 	附1：忘记mysql怎么修改密码的方法
 		进入/etc/my.cnf 在[mysql]下添加skip-grant-tables 启动安全模式
 		命令：vi /etc/my.cnf
@@ -116,7 +129,7 @@
 		进入mysql命令行
 		# mysql -u root -p
 		执行权限赋予命令
-		#GRANT ALL PRIVILEGES ON *.* TO ‘root’@‘%’ IDENTIFIED BY ‘' WITH GRANT OPTION; 
+		#grant all privileges on *.* to 'root'@'%' identified by '密码' with grant option;
 		刷新权限
 		flush privileges;
 		退出
