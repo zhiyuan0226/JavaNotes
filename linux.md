@@ -73,6 +73,18 @@
 		#cd /usr/local/tomcat/bin
 		#./start.sh & tailf ../logs/catalina.out
 		通过浏览器访问tomcat欢迎页面
+###### 	注意：这时候tomcat在重启的时候不会自动启动
+###### 	https://blog.csdn.net/wangli61289/article/details/37924785
+		1.修改/etc/rc.d/rc.local
+			vi /etc/rc.d/rc.local 
+		2.添加下面两行脚本，记住是两行，仅仅第二行不行，必须加第一行。在/etc/rc.d/rc.local文件最后加上：
+			 export JAVA_HOME=/usr/java/jdk1.7.0_60
+			/usr/local/tomcat/bin/startup.sh start
+		说明：/usr/java/jdk1.7.0_60 是jdk安装目录
+			/usr/local/tomcat是tomcat安装的目录
+		 3.注意:修改rc.local文件为可执行
+			chmod +x  rc.local
+
 ### 5.mysql配置
 	5.1 解压 
 	5.2 复制
