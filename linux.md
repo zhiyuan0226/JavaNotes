@@ -1,8 +1,7 @@
 # 系统环境 CentOS-6.5 
 ------------
 
-[0.终端提示](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "0.终端提示")
-
+[0.终端提示](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "0.终端提示")	
 [1.目录介绍](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "1.目录介绍")
 
 [2.常用命令](https://github.com/zhiyuan6666/Java/blob/master/linux.md#0-%E7%BB%88%E7%AB%AF%E6%8F%90%E7%A4%BA "2.常用命令")
