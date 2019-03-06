@@ -1,0 +1,120 @@
+1.Java有哪些基本数据类型？内存？
+	八种基本类型的数据分别是
+	boolean、char、byte、short、int、long、double、float
+	boolean和byte占一个字节
+	char和short占两个字节
+	int和float占四个字节
+	long和double占八个字节
+	然后Java还提供了想对应的包装类.
+	因为Java是面向对象的，但是基本数据类型不具备对象的性质，因此需要包装类将基本数据类型转换为对象。
+	Integer中 大于-128小于127的数 只会开辟出一份空间。当再次创建相同数值的integer对象时，并不会重新分配空间。直接指向第一分配的内存地址
+2.	ArrayList和LinkedList有什么区别，怎么用？复杂度？
+	ArrayList的底层是基于动态数组，LinkedList底层是基于链表。
+	由于数组查询比Linked快(因为linkedList需要移动指针)，因此ArrayList查询效率高
+	对应的数组增加删除较慢(因为数组需要移动数据)，因此LinkedList的删除效率要高
+	ArrayList空间的消耗主要在与数组的长度，数组的初始长度默认为10，当数据增长时，长度会增加 新长度=原长度*3/2+1 当数据过多是消耗的空间就会较大
+	LinkedList空间消耗体现在每一个元素都要储存前一个和后一个元素的信息
+总结：
+	ArrayList改查效率高，LinkedList增删效率高
+	ArrayList空间消耗在于要预留一定的容量空间
+	LinkedList空间消耗在于每个元素消耗一定的空间
+3. TCP和UDP的区别？TCP为什么可靠？
+	TCP是面向连接的，UDP是无连接的发送数据之前不需要建立起链接
+	TCP提供可靠的服务，也就是说TCP连接传输的数据无差错，不丢失，不重复
+	UDP提供最大努力交付，即不保证可靠交付但是UDP具有较好的实时性，工作效率比TCP要高
+	TCP是一对一传输的，UDP支持一对一，一对多传输
+	
+	TCP和UDP都是运输层
+4. 线程的状态
+	新建、就绪、堵塞、运行、结束
+	new之后就处于新建状态
+	具备运行条件但是没有获得CPU的调度就处于就绪状态
+	处于运行的线程在某些情况下会进入堵塞状态
+	死亡状态 
+		1、完成了全部工作
+		2、另一个线程强制终止他
+		3、线程抛出未捕获的异常
+	运行状态：正在执行自己的run()方法
+5.创建线程的方法
+	1.继承Thread类
+		public class MyThread extends Thread{
+			// 重写方法
+			@Override
+			public void run() {
+				System.out.println("线程1");
+			}
+			public static void main(String[] args) {
+				// 启动线程
+				MyThread t=new MyThread();
+				t.start();
+			}
+		}
+	2.实现Runnable接口
+		public class MyThread1 implements Runnable{
+
+			// 实现方法
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				System.out.println("线程2");
+			}
+			
+			public static void main(String[] args) {
+				// 启动线程
+				MyThread1 myThread1=new MyThread1();
+				Thread thread=new Thread(myThread1);
+				thread.start();
+			}
+		}
+	注意第二种方法需要先创建一个Thread对象，通过这个对象来启动线程。推荐使用这种方法。因为第二种发放是实现接口来实现的。接口可以多实现，但是类只能单继承。所以推荐用实现Runnable接口来实现线程
+6.Lambda表达式 简化线程(用一次)的使用
+	//推导过程
+	public class LambdaThrad {
+		// 静态内部类
+		static class Test1 implements Runnable {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				for (int i = 0; i < 20; i++) {
+					System.out.println("正在执行线程1。。。。");
+				}
+			}
+		}
+
+		public static void main(String[] args) {
+			// 静态内部类
+			new Thread(new Test1()).start();
+
+			// 局部内部类
+			class Test2 implements Runnable {
+				public void run() {
+					// TODO Auto-generated method stub
+					for (int i = 0; i < 20; i++) {
+						System.out.println("正在执行线程2。。。。");
+					}
+				}
+			}
+			// 局部内部类
+			new Thread(new Test2()).start();
+
+			// 匿名内部类 必须借助接口或者父类
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					for (int i = 0; i < 20; i++) {
+						System.out.println("正在执行线程3。。。。");
+					}
+				}
+			}).start();
+
+			// JDK8使用 λ 简化
+			// 只留下 参数 和 方法体
+			new Thread(() -> {
+				for (int i = 0; i < 20; i++) {
+					System.out.println("正在执行线程4。。。。");
+				}
+			}).start();
+		}
+	}
+	
+6.Java线程之间的通信
