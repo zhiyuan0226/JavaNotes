@@ -3,6 +3,7 @@
 	boolean、char、byte、short、int、long、double、float
 	boolean和byte占一个字节
 	char和short占两个字节
+		char为什么占两个字节 因为java采用Unicode编码格式
 	int和float占四个字节
 	long和double占八个字节
 	然后Java还提供了想对应的包装类.
@@ -116,5 +117,73 @@
 			}).start();
 		}
 	}
+7.Java跨平台的原理
+	因为Java代码的运行过程是先将Java源代码编译成字节码(.class)文件,然后由JVM来执行.class文件,因此只需要将各种平台安装好相对应的JVM就可以实现跨平台
+8. "==" 和equals();的区别
+	== 对于基本数据类型 比较的是值是否相同
+		对于引用数据类型比较的是地址是否相同
+	equals 比较的是内容是否相同
+9. String、StringBuilder、StringBuffer区别
+	String底层是一个final修饰的char数组，因此String的值不能被改变
+	StringBuilder线程不安全，效率高
+	StringBuffer线程安全,效率低
+10.java中的集合
+	分为两种 value 和key-value
+	存value
+		List: 有序可重复
+		Set: 无序不可重复
+	存储key-value
+		map：键值对
+11.HashMap和HashTable的区别	
+	HashMap是可以将null作为key或者value，但是HashTable不行
+	HashMap线程不安全，效率高。HashTable线程安全，效率低
+12.get和post请求的区别
+	https://www.cnblogs.com/logsharing/p/8448446.html
+	1.get请求的数据会在地址栏上显示出来，post不会。因此post请求安全
+	2.get请求由于浏览器的地址长度限制，导致传输的数据有限
+13.对servlet的理解
+	简单的理解为一个继承HttpServlet类的类
+	主要运行在服务器端，由服务器执行调用
+	功能：
+		客户端将请求发送给服务器
+		服务器把请求内容发送给Servlet
+		Servlet生成响应内容并传给服务器
+		服务器将响应内容发送给客户端
+	生命周期为：
+		第一次调用到服务器关闭
+		如果在xml配置文件中设置了启动时加载，服务器就会在启动的时候加载servlet并且执行servlet的init()方法,此时的生命周期为服务器启动到服务器关闭
+14.forward和redirect的区别
+	forward：地址栏不会改变，可以实现多个servlet的联动 解决了一次请求内的数据共享问题
+	redirect: 地址栏会改变，有两次请求，两个request对象，使用重定向可以避免表单的重复提交
+15.jsp和servlet的异同点
+	从本质上来讲JSP是一个servlet.因为每一个JSP文件都会被翻译为一个继承HttpServlet的类.
+	Servlet和JSP的不同点在于Servlet侧重于控制逻辑，JSP侧重于视图。因为Servlet如果要显示页面就会
+	PrintWriter out = response.getWriter();
+	out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+	out.println("<HTML>");
+	out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+	out.println("  <BODY>");
+	out.print("    This is ");
+	out.print(this.getClass());
+	out.println(", using the POST method");
+	out.println("  </BODY>");
+	out.println("</HTML>");
+	//最后要记得清空缓存区，并且关闭。
+	out.flush();
+	out.close();
+	会显得很繁琐，所以需要JSP来进行页面的显示
+16.JSP的九大内置对象，四大作用域，及其作用。
+
+17.cookie和session
+	cookie：
+		把数据存放在客户的浏览器上面
+	session:
+		把数据存储在服务器端
 	
-6.Java线程之间的通信
+	cookie通过在客户端记录信息确定身份，Session通过在服务端记录信息身份
+	
+	cookie：
+		当用户向服务器发送请求(包含个人信息例如账号密码等),服务器接收请求后给客户端一个响应(存放这个个人信息)，客户端收到这个响应之后将这个信息存储在本地，当再次请求该服务器的时候就会附带这个信息。就可以实现免登陆的功能了。
+	session：
+		
+	
