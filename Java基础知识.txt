@@ -158,19 +158,19 @@
 15.jsp和servlet的异同点
 	从本质上来讲JSP是一个servlet.因为每一个JSP文件都会被翻译为一个继承HttpServlet的类.
 	Servlet和JSP的不同点在于Servlet侧重于控制逻辑，JSP侧重于视图。因为Servlet如果要显示页面就会
-	PrintWriter out = response.getWriter();
-	out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-	out.println("<HTML>");
-	out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-	out.println("  <BODY>");
-	out.print("    This is ");
-	out.print(this.getClass());
-	out.println(", using the POST method");
-	out.println("  </BODY>");
-	out.println("</HTML>");
-	//最后要记得清空缓存区，并且关闭。
-	out.flush();
-	out.close();
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the POST method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		//最后要记得清空缓存区，并且关闭。
+		out.flush();
+		out.close();
 	会显得很繁琐，所以需要JSP来进行页面的显示
 16.JSP的九大内置对象，四大作用域，及其作用。
 
