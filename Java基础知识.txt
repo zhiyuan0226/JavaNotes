@@ -176,14 +176,67 @@
 
 17.cookie和session
 	cookie：
-		把数据存放在客户的浏览器上面
-	session:
-		把数据存储在服务器端
-	
-	cookie通过在客户端记录信息确定身份，Session通过在服务端记录信息身份
-	
-	cookie：
 		当用户向服务器发送请求(包含个人信息例如账号密码等),服务器接收请求后给客户端一个响应(存放这个个人信息)，客户端收到这个响应之后将这个信息存储在本地，当再次请求该服务器的时候就会附带这个信息。就可以实现免登陆的功能了。
-	session：
 		
-	
+	session：
+		session是服务器端使用的一种记录客户端状态的机制
+		通过request.getSession();来创建Session,创建session的时候，服务器会为该session生成一个唯一的sessionID，可以通过这个sessionID来获取已经创建的session，在session创建之后就可以根据session相应的方法往session中添加数据了，这些内容会存放在服务器中，发送到客户端的只有sessionID，当客户端再次发送请求时，会将sessionID带上，服务器接收请求后根据sessionID找到相对应的session，从而再次使用session中的数据
+		
+	cookie和session的区别
+		1.cookie数据保存在浏览器端，session的数据保存在服务器端
+		2.使用cookie不是很安全。考虑安全应该使用session
+		3.使用session会加大服务器的压力，因为session一般存放在内存中，当访问量过大时会导致服务器内存溢出，考虑性能的时候可以使用cookie
+		4.使用session的时候要依赖客户端的cookie
+		5.cookie默认有效期为浏览器会话期间，关闭浏览器失效
+		6.session默认有效期为30分钟
+18.MVC思想(Model View Controller)
+	目的:将数据模型与控制器分开
+	1.视图是指用户看到的并与之交互的页面(JSP HTML等)
+	2.模型表示企业数据和业务规则
+	3.
+	最经典的MVC场景就是jsp(View)+servlet(Controller)+javabeen(Model)
+19.数据库分类
+	关系型数据库：mysql、oracle、sqlserver
+	非关系型：redis、hadoop
+20.关系型数据库的三范式
+	第一范式：列数据不可分割
+	第二范式：要有主键
+	第三范式：每个属性都跟之间有直接关系
+21.事务的四个基本特性
+	1.原子性
+		一个事务包含多个操作要么都执行，要么都不执行
+	2.一致性
+		事务操作前后，数据库中的数据是一致的
+	3.隔离性
+		一个事务开始后其他事务不能干扰
+	4.持久性
+		事务完成后，所有的数据都会持久到数据库中，不会丢失。
+22.mysql和oracle的分页查询
+	mysql使用limit关键字来查询
+	oracle通过rownum关键字进行查询
+	查询6-10行的数据
+		mysql
+			select * from table limit 5,5;
+
+		oracle：注意rownum只能做小于等于操作
+			select t.* from 
+				(select rownum r ,table.* from table where rownum <=10) t
+			where 
+				t.r>=5
+23.数据库的触发器
+24.数据库的存储过程
+25.JDBC
+26.JDBC中的PreparedStatement相对于Statement的好处
+	1.PreparedStatement是预编译的执行速度快
+	2.PreparedStatement可以防止sql注入
+	3.PreparedStatement代码的可读性和维护性好
+27.数据库连接池的作用
+
+28.html、css、JavaScript在网页开发中的定位
+	html 页面布局
+	css  页面美化
+	js   用户交互
+29.简单介绍AJAX
+30.jquery的选择器
+
+
