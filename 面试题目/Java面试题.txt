@@ -216,9 +216,9 @@
 		6.session默认有效期为30分钟
 18.MVC思想(Model View Controller)
 	目的:将数据模型与控制器分开
-	1.视图是指用户看到的并与之交互的页面(JSP HTML等)
-	2.模型表示企业数据和业务规则
-	3.控制器表示
+	1.视图(View)
+	2.模型(Model)
+	3.控制器(Controller)  将视图与逻辑分开
 	最经典的MVC场景就是jsp(View)+servlet(Controller)+javabeen(Model)
 19.数据库分类
 	关系型数据库：mysql、oracle、sqlserver
