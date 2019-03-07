@@ -248,6 +248,7 @@
 		</select>
 
 10.缓存
+
 	应用程序和数据库交互过程是一个相对比较耗时的过程
 	让应用程序减少对数据的访问，提升程序运行效率
 	mybatis 默认sqlsession缓存开启
@@ -265,9 +266,128 @@
 		在mapper.xml中添加
 			<cache readOnly="true" />
 		当close()或commit()是会把sqlsession缓存刷到sqlsessionfactor缓存区中
+
+11.mybatis实现多表查询  2X3=6种方式
+	多表查询的方式
+		1.业务装配：对两个表写单表查询语句，然后在service中把查询的结果进行关联.
+		2.使用AutoMapping特性，在实现两表联合查询时通过别名来完成映射.
+		3.使用mybatis<resultMap>属性进行实现.
+	
+	多表查询时，类中包含另一个类的对象
+		1.单个对象
+		2.集合对象
+
+12.resultMap属性
+	1.编写在mapper.xml中，由程序员控制SQL查询结果与实体类的映射关系
+		使用AutoMapping(自动映射)特性
+	2.使用resultMap属性的时候,select标签中就不用写resultType属性，而是使用resultMap属性引用resultMap标签
+		手动映射
 		
+13.使用resultMap实现单表映射关系(表字段与pojo类属性 名称不一样)
+	数据库设计 id name
+	pojo类属性 id1 name1
+	
+	在mapper.xml进行映射
+	<resultMap type="teacher" id="mymap">
+		<!-- 主键使用id标签配置映射关系 -->
+		<id column="id" property="id1" />
+		<!-- 其他列使用result标签配置映射关系 -->
+		<result column="name" property="name1"/>
+	</resultMap>
+
+	<select id="selAll" resultMap="mymap">
+		select * from teacher
+	</select>
+
+14.类中包含一个其他对象 (N+1方式)例如(在查询学生的时候查询出老师-->即在学生对象中包含一个老师对象)	
+	1.N+1方式 先查询出某个表的全部信息,再根据这个表的信息查出另一个表的全部信息.
+		使用association属性
+	<resultMap type="student" id="stuMap">
+		<id column="id" property="id"  />
+		<result column="name" property="name"/> 
+		<result column="age" property="age"/>
+		<result column="tid" property="tid"/>
+		<!-- 如果关联一个对象 -->
+		<!-- 在teachermapper.xml写一个根据教师selById查询的方法  -->
+		<!-- 将selById方法(参数为tid)查询的结果映射到pojo类的teacher属性中 -->
+		<association property="teacher" select="com.wzy.mapper.TeacherMapper.selById" column="tid"></association>
+	</resultMap>
+	
+	<!-- 查询全部学生 -->
+	<select id="selAll" resultMap="stuMap">
+		select * from student
+	</select>
+
+	2.联合查询方式
+		只需要写一个sql查询
+		把<association>当作一个小的resultMap来看待
+		javaType 属性:<association/>专配完后返回一个什么类型的对象.取值是一个类(或类的别名) 
+	
+	<resultMap type="Student" id="stuMap1"> 
+		<id column="sid" property="id"/> 
+		<result column="sname" property="name"/> 
+		<result column="age" property="age"/> 
+		<result column="tid" property="tid"/> 
 		
+		<association property="teacher" javaType="Teacher" > 
+			<id column="tid" property="id"/> 
+			<result column="tname" property="name"/> 
+		</association> 
+	</resultMap> 
+	
+	<select id="selAll1" resultMap="stuMap1"> 
+			select s.id sid,s.name sname,age age,t.id tid,t.name tname FROM student s left outer join teacher t on s.tid=t.id 
+	</select>
+
+15.使用<resultMap>查询关联集合对象
+	1.N+1方式
+	TeacherMapper.xml中
+		<resultMap type="teacher" id="mymap"> 
+			<id column="id" property="id"/> 
+			<result column="name" property="name"/> 
+			<!--集合使用collection属性 -->
+			<collection property="list" select="com.wzy.mapper.StudentMapper.selByTid" column="id">
+			</collection> 
+		</resultMap> 
 		
+		<select id="selAll" resultMap="mymap"> 
+			select * from teacher 
+		</select>
+	
+	StudentMapper.xml中
+		<select id="selByTid" parameterType="int" resultType="student"> 
+			select * from student where tid=#{0} 
+		</select>
+	
+	2.联合查询方式
+		<resultMap type="teacher" id="mymap1"> 
+			<id column="tid" property="id"/> 
+			<result column="tname" property="name"/>
+			<collection property="list" ofType="student" > 
+				<id column="sid" property="id"/> 
+				<result column="sname" property="name"/> 
+				<result column="age" property="age"/> 
+				<result column="tid" property="tid"/> 
+			</collection> 
+		</resultMap> 
+		<select id="selAll" resultMap="mymap1"> 
+			select t.id tid,t.name tname,s.id sid,s.name sname,age,tid from teacher t LEFT JOIN student s on t.id=s.tid; 
+		</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
 MyBatis的问题：
 
 1.当实体类中的属性名和表中的字段名不一致时，使用MyBatis进行查询操作时无法查询出相应的结果的问题以及针对问题采用的两种办法：
