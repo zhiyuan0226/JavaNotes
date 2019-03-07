@@ -251,9 +251,24 @@
 	应用程序和数据库交互过程是一个相对比较耗时的过程
 	让应用程序减少对数据的访问，提升程序运行效率
 	mybatis 默认sqlsession缓存开启
-		同一个sqlsession对象调用同一个select时，只有第一次访问数据库，第一次之后把查询结果缓存到sqlsession的缓存区(内存)中
+		1.同一个sqlsession对象调用同一个<select>时，只有第一次访问数据库，第一次之后把查询结果缓存到sqlsession的缓存区(内存)中
+		2.缓存的是statement对象
+			一个<select>对应一个statement对象
+		3.必须是同一个sqlsession对象
+	缓存的流程
+		先去缓存区找是否存在statement
+		不存在去数据库获取数据，将数据放到缓存区中
+		存在返回数据即可
+	sqlsessionFactory缓存(二级缓存)
+		有效范围：同一个factory内的sqlsession
+		当数据频繁被使用，很少被修改
+		在mapper.xml中添加
+			<cache readOnly="true" />
+		当close()或commit()是会把sqlsession缓存刷到sqlsessionfactor缓存区中
 		
-MyBaties的问题：
+		
+		
+MyBatis的问题：
 
 1.当实体类中的属性名和表中的字段名不一致时，使用MyBatis进行查询操作时无法查询出相应的结果的问题以及针对问题采用的两种办法：
 	解决办法一: 通过在查询的sql语句中定义字段名的别名，让字段名的别名和实体类的属性名一致，这样就可以表的字段名和实体类的属性名一一对应上了，这种方式是通过在sql语句中定义别名来解决字段名和属性名的映射关系的。
