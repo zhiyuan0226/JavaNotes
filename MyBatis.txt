@@ -40,6 +40,7 @@
 	sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 	// 通过sqlsessionfactor工厂 创建sqlSession
 	// sqlsession相当于一次数据库会话，打开连接，执行sql，关闭链接
+	
 	SqlSession session = sqlSessionFactory.openSession();
 	try {
 		// 查询 并返回结果							方法名,								参数
@@ -276,7 +277,9 @@
 	多表查询时，类中包含另一个类的对象
 		1.单个对象
 		2.集合对象
-
+	数据库的设计
+		student: id  name age tid
+		teacher: id  name
 12.resultMap属性
 	1.编写在mapper.xml中，由程序员控制SQL查询结果与实体类的映射关系
 		使用AutoMapping(自动映射)特性
@@ -374,13 +377,51 @@
 			select t.id tid,t.name tname,s.id sid,s.name sname,age,tid from teacher t LEFT JOIN student s on t.id=s.tid; 
 		</select>
 
+16.使用AutoMapping(自动映射--查询出的列名和属性名要相同)结合别名实现多表查询.
+	注意：
+		1. 只适用 类中包含一个其他对象(不是集合)
+		2. 字符点. 在sql中是关键字，要是有反单引号(`)(tab按键上面的)
+	<select id="selAll" resultType="student">
+		select t.id `teacher.id`,t.name `teacher.name`,s.id id,s.name name,age,tid from student s LEFT JOIN teacher t on t.id=s.tid 
+	</select>
 
+17.mybatis注解
+	目的：简化mapper.xml配置文件
+	注意：
+		设计动态sql需要使用mapper.xml文件
+	
+	1.单表的增删改查
+	@Select("select * from student")
+	List<Student> selAll();
+		
+	@Update(update studen set name=#{name},age=#{age}where id=#{id})
+	int updById(Student s);
+	
+	@Delete("delete from student where id=#{0}")
+	int delById(int id);
 
-
-
-
-
-
+	@Insert("insert into student values(default,#{name},#{age})")
+	int insStudent(Student s);
+	
+	2.多表的增删改查
+	例子：查询学生的时候查询出老师   一个对象中包含另一个对象
+	@Select("select s.id id,s.name name ,s.age age,t.id `teacher.id`,t.name `teacher.name` from student s left join teacher t on s.tid=t.id")
+	List<Student> selAllStudent();
+	
+	例子：查询老师的时候查询出学生  一个对象中包含另一个集合
+	
+	在StudentMapper接口中添加
+	@Select("select * from student where tid=#{0}")
+	List<Student> selByTid(int tid);
+	
+	在TeacherMapper接口中添加
+	@Results(value={
+			@Result(id=true,property="id",column="id"),
+			@Result(property="name",column="name"),
+			@Result(property="list",column="id",many=@Many(select="com.wzy.mapper.StudentMapper.selByTid"))
+		})
+	@Select("select * from teacher") 	
+	List<Teacher> selAllTeacher();
 
 
 
