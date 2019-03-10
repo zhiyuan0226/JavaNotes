@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 
+		aop配置
+	 -->
+	<aop:config>
+		<!-- 定义切点 -->
+			<!-- 
+				* 通配符   匹配任意方法、任意类、任意一级包
+					如果希望匹配任意方法参数(..) 例：expression="execution(* com.wzy.test.Demo.*(..))"
+				
+			 -->
+		<aop:pointcut expression="execution(* com.wzy.test.*.*(..))" id="mypoint"/>
+		<!-- 引入通知 -->
+		<aop:advisor advice-ref="myBeforeAdvice" pointcut-ref="mypoint"/>
+		<aop:advisor advice-ref="myAfterAdvice" pointcut-ref="mypoint"/>
+		<aop:advisor advice-ref="myThrowAdvice" pointcut-ref="mypoint"/>
+		<aop:advisor advice-ref="myAroundAdvice" pointcut-ref="mypoint"/>
+		
+		<!-- AspectJ方式 -->
+		<aop:aspect ref="myThrowAdvice1">
+			<aop:pointcut expression="execution(* com.wzy.test.*.*(..))" id="mypoint1"/>
+			<aop:after-throwing method="myThrowingAspectJ" pointcut-ref="mypoint1" />
+		</aop:aspect>
+		<aop:aspect ref="myAdvice">
+			<aop:pointcut expression="execution(* com.wzy.test.*.*(..))" id="mypoint1"/>
+			<aop:around method="myarround" pointcut-ref="mypoint1"/>
+		</aop:aspect>
+	</aop:config>
+	<!-- AspectJ方式 -->
+	<bean id="myThrowAdvice1" class="com.wzy.advice.MyThrowAdvice"></bean>
+	<bean id="myAdvice" class="com.wzy.advice.MyAdvice"></bean>
+	
+	<!-- 上面引入通知的时候需要注入通知类 -->
+	<bean id="myBeforeAdvice" class="com.wzy.advice.MyBeforeAdvice"></bean>
+	<bean id="myAfterAdvice" class="com.wzy.advice.MyAfterAdvice"></bean>
+	<bean id="myThrowAdvice" class="com.wzy.advice.MyThrowAdvice"></bean>
+	<bean id="myAroundAdvice" class="com.wzy.advice.MyAroundAdvice"></bean>
+	
+	<!-- 需要将引入通知方法的对象交给spring来管理，测试的时候使用 -->
+	<bean id="demo" class="com.wzy.test.Demo"></bean>
+	<bean id="demo1" class="com.wzy.test.Demo1"></bean>
+</beans>
