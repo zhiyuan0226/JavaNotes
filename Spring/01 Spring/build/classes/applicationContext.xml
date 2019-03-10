@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 
+    	id表示获取到对象标识
+    	 class 创建哪个类的对象
+     -->
+	<bean id="peo" class="com.wzy.pojo.People"/>
+	
+	<!-- 创建对象的时候注入属性 -->
+	<bean id="peo1" class="com.wzy.pojo.People">
+		<constructor-arg index="0" value="666" ></constructor-arg>
+		<constructor-arg index="1" value="zhiyuan"></constructor-arg>
+	</bean>
+	<bean id="peo2" class="com.wzy.pojo.People">
+		<constructor-arg name="id" value="666" ></constructor-arg>
+		<constructor-arg index="1" value="zhiyuan"></constructor-arg>
+	</bean>
+	<!-- 创建实例工厂 -->
+	<bean id="factory" class="com.wzy.pojo.PeopleFactory"></bean>
+	<!-- 实例工厂创建对象 -->
+	<bean id="peo3" factory-bean="factory" factory-method="newInstance"></bean>
+	
+	<!-- 静态工厂创建对象 -->
+	<bean id="peo4" class="com.wzy.pojo.PeopleFactory" factory-method="newInstance1"></bean>
+	
+	<!-- 设置注入DI -->
+	<bean id="peo5" class="com.wzy.pojo.People">
+		<property name="id" value="999"></property>
+		<property name="name" >
+			<value>chenlei</value>
+		</property>
+	</bean>
+	<!-- 依赖注入通过<Bean>标签的ref属性来实现 -->
+	<!-- 
+		IoC 控制反转
+			实现与程序员的解耦，将程序员主动创建对象的过程交给spring来管理 
+		DI 依赖注入
+			当一个类对象依赖与另一个对象，当我们将另一个对象注入给这个对象时，叫做依赖注入
+	 -->
+	
+</beans>

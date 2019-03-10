@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+	<!-- 
+		数据源封装类  数据源：获取数据库连接 spring-jdbc.jar中
+	 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/ssm"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value=""></property>
+	</bean>
+	
+	<!-- 
+		创建sqlSessionFactory对象 
+		创建之前需要链接数据库 因此需要注入dataSouce
+	-->
+	<bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 
+		扫描器 相当于mubatis.xml下的mapper标签下的package标签
+		
+		负责扫描com.wzy.mapper包下的mapper.xml或者接口
+	 -->
+	 <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	 	<property name="basePackage" value="com.wzy.mapper"></property>
+	 	<property name="sqlSessionFactory" ref="factory"></property>
+	 </bean>
+	 
+	 <!-- 配置peopleMapper属性 -->
+	 <bean id="peopleService" class="com.wzy.service.impl.PeopleServiceImpl">
+	 	<property name="peopleMapper" ref="peopleMapper"></property>
+	 </bean>
+</beans>
