@@ -1,0 +1,7 @@
+Spring学习
+
+1.轮子理论
+	不要重复发明轮子(直接使用写好的代码)
+	spring框架的宗旨：不重新发明技术，让原有技术使用起来更加方便
+
+2.<img href="https://img-blog.csdn.net/20180316161927256?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L3FxXzIyNTgzNzQx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70"/>
