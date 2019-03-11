@@ -292,7 +292,7 @@ Spring学习
 	<context:property-placeholder location="classpath:db.properties"/>
 	
 	在取的时候${jdbc.username}但是要保证sqlSessionfactor类对象id为factory
-			
+	可以使用@Value注解来获取属性文件的值		
 			
 13.声明式事务		
 	编程式事务和声明式事务的区别？
