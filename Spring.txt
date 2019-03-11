@@ -294,15 +294,79 @@ Spring学习
 	在取的时候${jdbc.username}但是要保证sqlSessionfactor类对象id为factory
 			
 			
+13.声明式事务		
+	编程式事务和声明式事务的区别？
+		编程式事务，是在代码中直接添加处理事务的逻辑。声明式事务的事务控制代码已经由spring写好，我们只用声明出哪些方法需要进行事务控制。
 			
+		<aop:config>
+			<!-- 定义切点 -->
+			<aop:pointcut expression="execution(* com.wzy.service.impl.*.*(..))" id="mypoint"/>
+			<aop:advisor advice-ref="txAdvice" pointcut-ref="mypoint"/>
+		</aop:config>
+		<!-- 配置通知类 需要连接数据库 -->
+		<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource"></property>
+		</bean>
+		<!-- 配置声明式事务  -->
+		<tx:advice id="txAdvice" transaction-manager="txManager">
+			<tx:attributes>
+				<!-- 哪些方法需要事务管理 -->
+				<tx:method name="ins*" />
+				<tx:method name="upd*" />
+				<tx:method name="del*" />
+				<tx:method name="*" read-only="true"/>
+			</tx:attributes>
+		</tx:advice>			
 			
+	
+	1.name="" 哪些方法需要事务控制
+	2.read-only=""
+		true:告诉数据库此事务为只读事务。
+		false(默认值):事务需要提交
+	3.propagation=""	
+		控制事务传播行为：当一个具有事务管理的方法被另一个有事务管理的方法调用，应该怎么处理
+		REQUIRED：如果当前有事务，就在当前事务执行，不会新建事务；没有就新建一个事务
+		SUPPORTS：如果当前有事务，就在当前事务执行；没有就在非事务状态下进行。
+		MANDATORY：必须在事务内部执行，如果当前有事务，就在事务执行；没有事务就会报错。
+		REQUIRES_NEW：必须在事务中执行，如果当前有事务，将事务挂起；没有事务，新建事务。
+		NOT_SUPPORTED：必须在非事务下进行，有事务，挂起；没有事务，正常进行。
+		NEVER：必须在非事务下进行；没有事务正常执行；有事务，报异常；
+		NESTED：必须在事务状态下进行；没有事务，新建事务；有事务，会新建一个嵌套事务
+	4.isolation=""
+		事务隔离级别:多线程或者高并发下如何保证数据具有完整性。
+		DEFAULT：默认值，有数据库自动判断使用什么隔离级别
+		READ_UNCOMMITED:可以读取未提交的数据，可能会出现脏读，不可重复读和幻读
+		READ_COMMITED:只能读取到其他事物已经提交的数据：可以防止脏读，可能出现不可重复读和幻读
+		REPEATABLE_READ:读取的数据被添加锁：放指不可重复读和脏读，可能出现幻读
+		SERIALIZABLE：排队操作，对整个表添加锁，一个事务在操作数据时，另一个事务等待事务操作完成后才能操作整个表。
+		
+		脏读：一个事务A读取了另一个事务B为提交的数据，另一个事务B中的数据可能进行了改变，此时A事务读取的数据可能和数据库中的不一致,此时认为数据是脏数据。读取脏数据的过程为脏读。
+		不可重复读：针对的对是某行数据的修改操作，两次读的过程实在同一个事务内
+			当事务A在第一次读取事务后，事务B对事务A读取的数据进行修改，事务A中再次读取的数据和之前读取的数据不一致，过程不可重复读。
 			
+			解决：读取数据的时候限制这条数据不能修改
+			例子：A去柜台取钱，问柜台人员卡里有多少钱，回答88888元，此时A老婆B在ATM取出88880元。A说取出10000元，柜台人员正要取的时候发现余额为8元
+		
+		幻读：针对新增或者删除，两次事务的结果
+			事务A按照特定条件查询出结果，事务B去新增了一条符合条件的数据。事务A中查询的数据和数据库中的数据不一致，事务A好像出现了幻觉，这种情况称为幻读。
+			例：发工资的时候，会计A准备发工资，开始查询工资在5000-10000之间的人有多个。发现有10个，此时另一个会计B录入一个员工的工资为8888.此时数据库中符合A查询条件的有11个。
 			
-			
-			
-			
-			
-			
-			
-			
-			
+			解决：锁定整个表
+
+14.spring中常用注解
+	1.@Component 相当于配置一个<bean>标签
+	2.@Service 和@Component功能相同，只是语义的不同，给开发者一个提示
+	3.@Controller 同上  
+	4.@Repository  同上
+	5.@Resource  javax注解   默认按照byName注入，没有就按byType注入	
+	6.@Autowired spring注解   默认按照byType注入
+		@Resource  @Autowired 都不需要写对象的get和set方法
+		为了提高效率建议把对象名和spring容器中的对象名改为一致
+	7.@Value	获取属性文件(db.properties)的值
+	8.@Pointcut 定义切点
+	9. @Aspect() 定义切面类
+	10. @Before() 前置通知
+	11. @After 后置通知
+	12. @AfterReturning 后置通知,必须切点正确执行
+	13. @AfterThrowing 异常通知
+	14. @Arround 环绕通知
