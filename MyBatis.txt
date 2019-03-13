@@ -446,3 +446,78 @@ MyBatis的问题：
 3.#{}和${}的区别
 	#{}使用占位符
 	${}使用字符串拼接
+4.mybatis配置文件详解
+	下面为一个基本的mybatis.xml的配置文件
+	第一步：我们需要导入dtd 因为不导入dtd没有提示
+	第二步：配置<environments>标签，我们所需要连接数据库的信息
+		这个有一个default=""属性 表示使用我们配置的哪一个环境（引用下面我们配置的<environment>标签的id）
+	第三步：在<environments>标签下配置一个或者多个<environment>标签
+		<environment>标签属性
+			id="" 
+	第四步：在<environment>标签下配置我们需要的数据源信息
+		<transactionManager> 事务管理机制  
+			type="JDBC"   表示使用jdbc的事务管理机制
+		<dataSource>配置数据源信息
+			type="POOLED" 表示使用数据库连接词技术
+			<property> 表示连接数据库需要的信息
+			<property name="driver" value="com.mysql.jdbc.Driver"/>
+			<property name="url" value="jdbc:mysql://localhost:3306/test"/>
+			<property name="username" value="root"/>
+			<property name="password" value=""/>
+	第五步：配置<mappers>标签 告诉mybatis去哪里寻找映射文件，从而找到sql语句
+		<mappers>
+			<package name="com.wzy.mapper"/>  // 表示这个包中有映射文件
+			<mapper resource="xml的文件路径">
+			<mapper class="Mapper接口的类路径" />
+		</mappers>
+	第六步：为了输出sql语句查询信息(注意set标签的位置在environments标签的上面)
+	<!-- log4j功能注意顺序 鼠标放在根标签-->
+	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+	</settings>
+	第七步：添加别名
+	<!-- 增加别名 -->
+	<typeAliases>
+		<package name="com.wzy.pojo"/>
+	</typeAliases>
+	
+	
+		
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--导入DTD  XML的语法检查器-->
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!-- log4j功能注意顺序 鼠标放在根标签-->
+	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+	</settings>
+
+	<!-- 增加别名 -->
+	<typeAliases>
+		<package name="com.wzy.pojo"/>
+	</typeAliases>
+
+
+	<!--default 引用environment的id，表示当前所用的环境  -->
+	<environments default="default">
+		<!--声明可能使用的环境  -->
+		<environment id="default">
+			<!--使用原生JDBC事物  -->
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">  <!--数据库连接池  -->
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/test"/>
+				<property name="username" value="root"/>
+				<property name="password" value=""/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<package name="com.wzy.mapper"/>
+	</mappers>
+</configuration>
