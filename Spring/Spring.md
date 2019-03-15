@@ -1,27 +1,28 @@
-Spring学习
+# Spring学习
 	
 
-1.轮子理论
+#### 1.轮子理论
 	不要重复发明轮子(直接使用写好的代码)
 	spring框架的宗旨：不重新发明技术，让原有技术使用起来更加方便
 
-2.
+#### 2.Spring
 	Ioc 解耦
 	AOP 扩展
 	事务管理
 
-3.IoC 控制反转
-	1.IoC是什么？
+#### 3.IoC 控制反转
+    1.IoC是什么？
 		原先由程序员主动通过new实例化的事情交给spring来管理
-	2.作用：解耦
-		解除了程序员与对象之间的耦合
+    2.作用：解耦
+    	解除了程序员与对象之间的耦合
 
-4.环境搭建(导入jar包)
-	4个核心 1个依赖
+#### 4.环境搭建(导入jar包)
+> 4个核心 1个依赖
+
 	beans、core、context、expression
 	commons-loggins
 
-5.编写配置文件applicationContext.xml
+#### 5.编写配置文件applicationContext.xml
 	通过bean标签来创建对象(默认是配置文件被加载时创建对象)
 		<?xml version="1.0" encoding="UTF-8"?>
 		<beans xmlns="http://www.springframework.org/schema/beans"
@@ -41,7 +42,7 @@ Spring学习
 		People peo = ac.getBean("peo",People.class);
 	来获取对象
 
-6.创建对象的方式
+#### 6.创建对象的方式
 	1.通过构造方法创建(无参构造、有参构造)
 	2.实例工厂
 	3.静态工厂
@@ -54,8 +55,9 @@ Spring学习
 		
 	3.静态工厂(在创建对象的方法前面添加static关键字)
 		不需要创建工厂,快速创建对象.
-	
-	applicationContext.xml
+
+**applicationContext.xml**
+
 		<?xml version="1.0" encoding="UTF-8"?>
 		<beans xmlns="http://www.springframework.org/schema/beans"
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -96,11 +98,10 @@ Spring学习
 					return new People();
 				}
 			}
-		测试代码
+**测试代码**
+
 			public class Test {
 				public static void main(String[] args) {
-					
-					
 					ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
 					// 无参构造
 					People peo = ac.getBean("peo",People.class);
@@ -117,14 +118,14 @@ Spring学习
 				}
 			}
 
-7.给Bean的属性赋值(注入)
+#### 7.给Bean的属性赋值(注入)
 	1.通过构造方法来注入
 	2.设置注入(通过set方法来注入)
 
-8.DI 依赖注入
+#### 8.DI 依赖注入
 	DI:当一个对象(A)中需要依赖另一个对象(B)时，把另一个对象(B)赋值给这个对象(A)的过程叫做DI
 
-9.Spring来简化Mybatis
+#### 9.Spring来简化Mybatis
 	1.导包
 		Mybatis需要的jar包
 		Spring运行需要的包
@@ -142,12 +143,12 @@ Spring学习
 				<!-- spring 配置文件 -->
 				<param-value>classpath:applicationContext.xml</para m-value> </context-param>
 		
-10.AOP 面向切面编程
-	1.正常执行顺序：纵向流程
+#### 10.AOP 面向切面编程
+##### 1.正常执行顺序：纵向流程
 						demo1()
 						demo2()
 						demo3()
-	2.AOP 
+##### 2.AOP
 		
 						demo1()
 			前置通知	demo2()		后置通知
@@ -155,14 +156,14 @@ Spring学习
 		在程序原有纵向流程中，针对某一个或者某些方法添加通知，形成横切面过程就叫做面向切面编程。
 			高扩展性
 			相当于释放了部分逻辑，让职责更加明确
-	3.常用概念
+##### 3.常用概念
 		1.原有功能：切点
 		2.前置通知 beforeAdvice
 		3.后置通知 afterAdvice
 		4.异常通知 throwAdvice
 		5.所有功能总称叫做切面
 		6.织入 把切面嵌入原有功能叫做织入
-	4.实现方式
+##### 4.实现方式
 		1.schame-base方式
 			每个通知需要实现接口或者类(MathBeforeAdvice、AfterReturningAdvice)
 			配置spring文件时是在<aop:config>中配置
@@ -179,7 +180,7 @@ Spring学习
 					System.out.println("执行前置通知");
 				}
 			}
-		5.实现后置通知
+##### 5.实现后置通知
 			public class MyAfterAdvice implements AfterReturningAdvice {
 
 				@Override
@@ -190,7 +191,7 @@ Spring学习
 
 			}
 		
-		6.applicationContext.xml
+##### 6.applicationContext.xml
 			<?xml version="1.0" encoding="UTF-8"?>
 			<beans xmlns="http://www.springframework.org/schema/beans"
 				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -217,7 +218,7 @@ Spring学习
 				<!-- 需要将引入通知方法的对象交给spring来管理，测试的时候使用 -->
 				<bean id="demo" class="com.wzy.test.Demo"></bean>
 			</beans>
-	6.配置异常通知
+##### 6.配置异常通知
 		只有切点报了异常才能触发异常通知，否者无效
 		使用了try-catch处理之后也不会触发
 		1.schema-base方法
@@ -255,7 +256,7 @@ Spring学习
 			<bean id="myThrowAdvice" class="com.wzy.advice.MyThrowAdvice"></bean>
 			
 			
-	7.环绕通知：那前置通知和后置通知都写在一个通知中
+##### 7.环绕通知：那前置通知和后置通知都写在一个通知中7.环绕通知：那前置通知和后置通知都写在一个通知中
 		
 		1.schema-base
 			public class MyAroundAdvice implements MethodInterceptor{
@@ -286,18 +287,18 @@ Spring学习
 			<context:component-scan base-package="com.wzy.advice,com.wzy.test"></context:component-scan>
 						
 			
-11.自动注入
+#### 11.自动注入
 
-12.加载属性文件
+#### 12.加载属性文件
 	<context:property-placeholder location="classpath:db.properties"/>
 	
 	在取的时候${jdbc.username}但是要保证sqlSessionfactor类对象id为factory
 	可以使用@Value注解来获取属性文件的值		
 			
-13.声明式事务		
-	编程式事务和声明式事务的区别？
+#### 13.声明式事务
+> 	编程式事务和声明式事务的区别？
 		编程式事务，是在代码中直接添加处理事务的逻辑。声明式事务的事务控制代码已经由spring写好，我们只用声明出哪些方法需要进行事务控制。
-			
+
 		<aop:config>
 			<!-- 定义切点 -->
 			<aop:pointcut expression="execution(* com.wzy.service.impl.*.*(..))" id="mypoint"/>
@@ -317,8 +318,7 @@ Spring学习
 				<tx:method name="*" read-only="true"/>
 			</tx:attributes>
 		</tx:advice>			
-			
-	
+###### <tx:method>属性说明
 	1.name="" 哪些方法需要事务控制
 	2.read-only=""
 		true:告诉数据库此事务为只读事务。
@@ -339,7 +339,7 @@ Spring学习
 		READ_COMMITED:只能读取到其他事物已经提交的数据：可以防止脏读，可能出现不可重复读和幻读
 		REPEATABLE_READ:读取的数据被添加锁：放指不可重复读和脏读，可能出现幻读
 		SERIALIZABLE：排队操作，对整个表添加锁，一个事务在操作数据时，另一个事务等待事务操作完成后才能操作整个表。
-		
+
 		脏读：一个事务A读取了另一个事务B为提交的数据，另一个事务B中的数据可能进行了改变，此时A事务读取的数据可能和数据库中的不一致,此时认为数据是脏数据。读取脏数据的过程为脏读。
 		不可重复读：针对的对是某行数据的修改操作，两次读的过程实在同一个事务内
 			当事务A在第一次读取事务后，事务B对事务A读取的数据进行修改，事务A中再次读取的数据和之前读取的数据不一致，过程不可重复读。
@@ -353,20 +353,21 @@ Spring学习
 			
 			解决：锁定整个表
 
-14.spring中常用注解
-	1.@Component 相当于配置一个<bean>标签
-	2.@Service 和@Component功能相同，只是语义的不同，给开发者一个提示
-	3.@Controller 同上  
-	4.@Repository  同上
-	5.@Resource  javax注解   默认按照byName注入，没有就按byType注入	
-	6.@Autowired spring注解   默认按照byType注入
-		@Resource  @Autowired 都不需要写对象的get和set方法
-		为了提高效率建议把对象名和spring容器中的对象名改为一致
-	7.@Value	获取属性文件(db.properties)的值
-	8.@Pointcut 定义切点
-	9. @Aspect() 定义切面类
-	10. @Before() 前置通知
-	11. @After 后置通知
-	12. @AfterReturning 后置通知,必须切点正确执行
-	13. @AfterThrowing 异常通知
-	14. @Arround 环绕通知
+#### 14.spring中常用注解
+
+    1. @Component 相当于配置一个<bean>标签
+    2. @Service 和@Component功能相同，只是语义的不同，给开发者一个提示
+    3. @Controller 同上  
+    4. @Repository  同上
+    5. @Resource  javax注解   默认按照byName注入，没有就按byType注入	
+    6. @Autowired spring注解   默认按照byType注入
+      @Resource  @Autowired 都不需要写对象的get和set方法
+      为了提高效率建议把对象名和spring容器中的对象名改为一致
+    7. @Value	获取属性文件(db.properties)的值
+    8. @Pointcut 定义切点
+    9. @Aspect() 定义切面类
+    10. @Before() 前置通知
+    11. @After 后置通知
+    12. @AfterReturning 后置通知,必须切点正确执行
+    13. @AfterThrowing 异常通知
+    14. @Arround 环绕通知
