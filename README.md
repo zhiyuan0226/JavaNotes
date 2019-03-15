@@ -16,7 +16,7 @@
 ## 数据库
 ## 框架
 - ### [Mybatis](https://github.com/zhiyuan6666/Java/blob/master/MyBatis.md "mybatis")
-- ### [Spring](https://github.com/zhiyuan6666/JavaNotes/tree/master/Spring/spring.md "Spring")
+- ### [Spring](https://github.com/zhiyuan6666/JavaNotes/tree/master/Spring/Spring.md "Spring")
 
 ## Linux
 - ### [Linux环境配置](https://github.com/zhiyuan6666/Java/blob/master/linux.md "Linux环境配置")
