@@ -12,7 +12,7 @@
 	4.1 组件为abc,控制abc的语法
 		$("通过jQuery获取组件").abc({
 			属性名:值,
-			时间:function(){}
+			事件:function(){}
 		})
 	4.2 控制abc的方法
 		$("jQuery获取组件").abc("方法名");
