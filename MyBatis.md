@@ -1,92 +1,95 @@
-什么是框架?
-	框架就是软件半成品，使用的时候根据需求进行填空
-	需要建立特定位置和名称的配置文件,在文件中添加变量
-		使用了xml解析和反射的技术
-1.MyBatis是数据访问层的框架(底层是对JDBC的封装)
-2.mybatis.xml文件
-帮助文档中的简单示例
-	<?xml version="1.0" encoding="UTF-8" ?>
-	<!-- 加载DTD-->
-	<!DOCTYPE configuration
-	  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-	  "http://mybatis.org/dtd/mybatis-3-config.dtd">
-	<configuration>
-		<!-- default属性表示引用的环境-->
-	  <environments default="development">
-		<!-- 可以有多个environment标签 -->
-		<environment id="development">
-			<!-- 使用原生JDBC事务 -->
-		  <transactionManager type="JDBC"/>
-		  <!-- 数据库连接池技术 -->
-		  <dataSource type="POOLED">
-			<!-- 连接JDBC的属性 -->
-			<property name="driver" value="${driver}"/>
-			<property name="url" value="${url}"/>
-			<property name="username" value="${username}"/>
-			<property name="password" value="${password}"/>
-		  </dataSource>
-		</environment>
-	  </environments>
-	  <!-- 加载mapper.xml文件 -->
-	  <mappers>
-		<mapper resource="org/mybatis/example/BlogMapper.xml"/>
-	  </mappers>
-	  
-	</configuration>
-测试类中
-	String resource = "org/mybatis/example/mybatis-config.xml";
-	// 加载配置文件
-	InputStream inputStream = Resources.getResourceAsStream(resource);
-	// 通过SqlSessionFactoryBuilder创建一个工厂
-	sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-	// 通过sqlsessionfactor工厂 创建sqlSession
-	// sqlsession相当于一次数据库会话，打开连接，执行sql，关闭链接
-	
-	SqlSession session = sqlSessionFactory.openSession();
-	try {
-		// 查询 并返回结果							方法名,								参数
-	  Blog blog = (Blog) session.selectOne("org.mybatis.example.BlogMapper.selectBlog", 101);
-	} finally {
-		// 释放资源
-	  session.close();
-	}
+# 什么是框架?
+> 　　框架就是软件半成品，使用的时候根据需求进行填空　
+　　需要建立特定位置和名称的配置文件,在文件中添加变量
+　　使用了xml解析和反射的技术
+  
+##### 1.MyBatis是数据访问层的框架(底层是对JDBC的封装)
+##### 2.mybatis.xml文件
+> 帮助文档中的简单示例
 
-	mapper.xml文件配置
-		<?xml version="1.0" encoding="UTF-8"?>
-		<!DOCTYPE mapper
-		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-		
-		<!-- namesapce:理解成实现类的全路径(包名+类名) -->
-		<mapper namespace="com.wzy.mapper.PojoMapper" >
-			<!-- id:方法名 parameterType:定义参数类型 resultType:返回值类型.
-			如果方法返回值是list,在resultType中写List的泛型, 因为mybatis
-			对jdbc封装,一行一行读取数据
-			-->
-			<select id="selAll"
-			resultType="com.wzy.pojo.Pojo"> select * from Pojo
-			</select>
-		</mapper>
+    	<?xml version="1.0" encoding="UTF-8" ?>
+    	<!-- 加载DTD-->
+    	<!DOCTYPE configuration
+    	  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    	  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    	<configuration>
+    		<!-- default属性表示引用的环境-->
+    		<environments default="development">
+    		<!-- 可以有多个environment标签 -->
+    		<environment id="development">
+				<!-- 使用原生JDBC事务 -->
+				<transactionManager type="JDBC"></transactionManager>
+				<!-- 数据库连接池技术 -->
+				<dataSource type="POOLED">
+					<!-- 连接JDBC的属性 -->
+					<property name="driver" value="${driver}"></property>
+					<property name="url" value="${url}"></property>
+					<property name="username" value="${username}"></property>
+					<property name="password" value="${password}"></property>
+				</dataSource>
+    		</environment>
+    	  </environments>
+    	  <!-- 加载mapper.xml文件 -->
+    	  <mappers>
+    		<mapper resource="org/mybatis/example/BlogMapper.xml"></mapper>
+    	  </mappers> 
+    	</configuration>
+> 测试类中
 
-3.log4j支持
+    	String resource = "org/mybatis/example/mybatis-config.xml";
+    	// 加载配置文件
+    	InputStream inputStream = Resources.getResourceAsStream(resource);
+    	// 通过SqlSessionFactoryBuilder创建一个工厂
+    	sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    	// 通过sqlsessionfactor工厂 创建sqlSession
+    	// sqlsession相当于一次数据库会话，打开连接，执行sql，关闭链接
+    	
+    	SqlSession session = sqlSessionFactory.openSession();
+    	try {
+    		// 查询 并返回结果							方法名,								参数
+    	  Blog blog = (Blog) session.selectOne("org.mybatis.example.BlogMapper.selectBlog", 101);
+    	} finally {
+    		// 释放资源
+    	  session.close();
+    	}
+    
+    	mapper.xml文件配置
+    		<?xml version="1.0" encoding="UTF-8"?>
+    		<!DOCTYPE mapper
+    		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    		
+    		<!-- namesapce:理解成实现类的全路径(包名+类名) -->
+    		<mapper namespace="com.wzy.mapper.PojoMapper" >
+    			<!-- id:方法名 parameterType:定义参数类型 resultType:返回值类型.
+    			如果方法返回值是list,在resultType中写List的泛型, 因为mybatis
+    			对jdbc封装,一行一行读取数据
+    			-->
+    			<select id="selAll"
+    			resultType="com.wzy.pojo.Pojo"> select * from Pojo
+    			</select>
+    		</mapper>
+
+##### 3.log4j支持
 	在mybatis.xml文件中配置
 	注意：在src下要有log4j.properties文件
 	注意 setings标签的位置(dtd的语法要求)
 	<settings>
 		<setting name="logImpl" value="LOG4J"/> 
-	</settings
-4.别名
-	在mybatis.xml文件中配置
+	</settings>
+##### 4.别名
+> 在mybatis.xml文件中配置
+
 	<typeAliases> 
 		<package name="com.wzy.pojo" /> 
 	</typeAliases>
 	引用的时候直接写类名就行 不用写全路径
 	
-5.parameterType设置参数类型
+##### 5.parameterType设置参数类型
 
-6.resultType设置返回类型
+##### 6.resultType设置返回类型
 
-7.Mybatis接口绑定 使用了动态代理和反射
+##### 7.Mybatis接口绑定 使用了动态代理和反射
 	创建接口
 		接口包名和接口名要与mapper.xml的namespace一致
 		
@@ -118,7 +121,7 @@
 			where param1=#{param1} and param2=#{param2}
 		</select>
 		原理:Mybatis底层把参数转换成了map了 
-8.动态SQL
+##### 8.动态SQL
 	<if test="">
 		and XXX
 	</if>
@@ -249,7 +252,7 @@
 			</foreach> 
 		</select>
 
-10.缓存
+##### 10.缓存
 
 	应用程序和数据库交互过程是一个相对比较耗时的过程
 	让应用程序减少对数据的访问，提升程序运行效率
@@ -269,7 +272,7 @@
 			<cache readOnly="true" />
 		当close()或commit()是会把sqlsession缓存刷到sqlsessionfactor缓存区中
 
-11.mybatis实现多表查询  2X3=6种方式
+##### 11.mybatis实现多表查询  2X3=6种方式
 	多表查询的方式
 		1.业务装配：对两个表写单表查询语句，然后在service中把查询的结果进行关联.
 		2.使用AutoMapping特性，在实现两表联合查询时通过别名来完成映射.
@@ -281,13 +284,13 @@
 	数据库的设计
 		student: id  name age tid
 		teacher: id  name
-12.resultMap属性
+##### 12.resultMap属性
 	1.编写在mapper.xml中，由程序员控制SQL查询结果与实体类的映射关系
 		使用AutoMapping(自动映射)特性
 	2.使用resultMap属性的时候,select标签中就不用写resultType属性，而是使用resultMap属性引用resultMap标签
 		手动映射
 		
-13.使用resultMap实现单表映射关系(表字段与pojo类属性 名称不一样)
+##### 13.使用resultMap实现单表映射关系(表字段与pojo类属性 名称不一样)
 	数据库设计 id name
 	pojo类属性 id1 name1
 	
@@ -303,7 +306,7 @@
 		select * from teacher
 	</select>
 
-14.类中包含一个其他对象 (N+1方式)例如(在查询学生的时候查询出老师-->即在学生对象中包含一个老师对象)	
+##### 14.类中包含一个其他对象 (N+1方式)例如(在查询学生的时候查询出老师-->即在学生对象中包含一个老师对象)
 	1.N+1方式 先查询出某个表的全部信息,再根据这个表的信息查出另一个表的全部信息.
 		使用association属性
 	<resultMap type="student" id="stuMap">
@@ -343,7 +346,7 @@
 			select s.id sid,s.name sname,age age,t.id tid,t.name tname FROM student s left outer join teacher t on s.tid=t.id 
 	</select>
 
-15.使用<resultMap>查询关联集合对象
+##### 15.使用<resultMap>查询关联集合对象
 	1.N+1方式
 	TeacherMapper.xml中
 		<resultMap type="teacher" id="mymap"> 
@@ -378,7 +381,7 @@
 			select t.id tid,t.name tname,s.id sid,s.name sname,age,tid from teacher t LEFT JOIN student s on t.id=s.tid; 
 		</select>
 
-16.使用AutoMapping(自动映射--查询出的列名和属性名要相同)结合别名实现多表查询.
+##### 16.使用AutoMapping(自动映射--查询出的列名和属性名要相同)结合别名实现多表查询.
 	注意：
 		1. 只适用 类中包含一个其他对象(不是集合)
 		2. 字符点. 在sql中是关键字，要是有反单引号(`)(tab按键上面的)
@@ -386,7 +389,7 @@
 		select t.id `teacher.id`,t.name `teacher.name`,s.id id,s.name name,age,tid from student s LEFT JOIN teacher t on t.id=s.tid 
 	</select>
 
-17.mybatis注解
+##### 17.mybatis注解
 	目的：简化mapper.xml配置文件
 	注意：
 		设计动态sql需要使用mapper.xml文件
@@ -430,12 +433,15 @@
 
 	
 
-MyBatis的问题：
+#### MyBatis的问题：
 
-1.当实体类中的属性名和表中的字段名不一致时，使用MyBatis进行查询操作时无法查询出相应的结果的问题以及针对问题采用的两种办法：
-	解决办法一: 通过在查询的sql语句中定义字段名的别名，让字段名的别名和实体类的属性名一致，这样就可以表的字段名和实体类的属性名一一对应上了，这种方式是通过在sql语句中定义别名来解决字段名和属性名的映射关系的。
-	解决办法二: 通过<resultMap>来映射字段名和实体类属性名的一一对应关系。这种方式是使用MyBatis提供的解决方式来解决字段名和属性名的映射关系的。
-2.数据库连接池技术
+##### 1.当实体类中的属性名和表中的字段名不一致时，使用MyBatis进行查询操作时无法查询出相应的结果的问题以及针对问题采用的两种办法：
+
+> 	解决办法一: 通过在查询的sql语句中定义字段名的别名，让字段名的别名和实体类的属性名一致，这样就可以表的字段名和实体类的属性名一一对应上了，这种方式是通过在sql语句中定义别名来解决字段名和属性名的映射关系的。
+
+> 	解决办法二: 通过<resultMap>来映射字段名和实体类属性名的一一对应关系。这种方式是使用MyBatis提供的解决方式来解决字段名和属性名的映射关系的。
+
+##### 2.数据库连接池技术
 	在内存中开辟一块空间，存放多个数据库连接对象
 	原理
 		正常情况下：
@@ -443,11 +449,11 @@ MyBatis的问题：
 		数据库连接池：
 			当查询完数据之后不关闭连接，供下一次请求使用
 			减少了数据库连接和断开的时间消耗
-3.#{}和${}的区别
+##### 3.#{}和${}的区别
 	#{}使用占位符
 	${}使用字符串拼接
-4.mybatis配置文件详解
-	下面为一个基本的mybatis.xml的配置文件
+##### 4.mybatis配置文件详解
+###### 下面为一个基本的mybatis.xml的配置文件
 	第一步：我们需要导入dtd 因为不导入dtd没有提示
 	第二步：配置<environments>标签，我们所需要连接数据库的信息
 		这个有一个default=""属性 表示使用我们配置的哪一个环境（引用下面我们配置的<environment>标签的id）
@@ -480,9 +486,8 @@ MyBatis的问题：
 	<typeAliases>
 		<package name="com.wzy.pojo"/>
 	</typeAliases>
-	
-	
-		
+##### mybatis配置文件
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--导入DTD  XML的语法检查器-->
@@ -521,3 +526,4 @@ MyBatis的问题：
 		<package name="com.wzy.mapper"/>
 	</mappers>
 </configuration>
+```
