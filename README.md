@@ -10,7 +10,7 @@
 
 ## 前端
 - ### [JavaScript](https://github.com/zhiyuan6666/JavaNotes/blob/master/JavaScript.md "JS")
-              [原生Ajax](https://blog.csdn.net/qq_37035352/article/details/88687573)
+      [原生Ajax](https://blog.csdn.net/qq_37035352/article/details/88687573)
 
 ## Servlet和JSP
 
